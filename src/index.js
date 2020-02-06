@@ -7,11 +7,12 @@ function component() {
     const btn = document.createElement('button')
 
     // Lodash, currently included via a script, is required for this line to work
-    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+    element.innerHTML = _.join(['Hello', 'world'], ' ');
     btn.innerHTML = 'Click It'
     btn.onclick = printMe
 
     element.appendChild(btn)
+    element.classList.add('mt-10')
 
     return element;
 }
