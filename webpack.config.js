@@ -1,8 +1,15 @@
 const path = require('path');
+const glob = require('glob');
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const PurgecssPlugin = require('purgecss-webpack-plugin');
+
 const devMode = process.env.NODE_ENV !== 'production'
+const PATHS = {
+    src: path.join(__dirname, 'src')
+}
 
 module.exports = {
     mode: 'development',
@@ -46,6 +53,9 @@ module.exports = {
             // both options are optional
             filename: devMode ? '[name].css' : '[name].[contenthash].css',
             chunkFilename: devMode ? '[name].css' : '[name].[contenthash].css',
+        }),
+        new PurgecssPlugin({
+            paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true }),
         }),
     ],
     output: {
